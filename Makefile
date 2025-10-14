@@ -1,12 +1,15 @@
+USER ?= $(shell whoami)
+REPO ?= template-ml-service
+.PHONY: install run lint type test docker-build
 install:
-\tpip install -U pip && pip install -e .[dev]
+	python -m pip install -U pip && pip install -e .[dev]
 run:
-\tuvicorn src.<pkg_name>.app:app --reload --port 8080
+	uvicorn src.template_service.app:app --reload --port 8080
 lint:
-\truff check .
+	ruff check .
 type:
-\tmypy src
+	mypy src
 test:
-\tpytest -q
+	pytest -q
 docker-build:
-\tdocker build -f docker/Dockerfile -t ghcr.io/$(USER)/$(REPO):local .
+	docker build -f docker/Dockerfile -t ghcr.io/${USER}/${REPO}:local .
