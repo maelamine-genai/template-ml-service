@@ -21,5 +21,6 @@ jobs:
           context: .
           file: docker/Dockerfile
           push: false                 # build only, don’t publish on PRs
+          load: true                 # load into local docker
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
